@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Mono&display=swap" rel="stylesheet">
+    <title>AB's Event Planner</title>
+</head>
+<style>
+    /* Add a custom style for the container that holds the content */
+    #content-container {
+        background-image: url(https://images.pexels.com/photos/385998/pexels-photo-385998.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2);
+        background-size: cover; /* Adjust background size */
+        background-position: top center; /* Position background image at the top center */
+        background-color: rgba(0, 0, 0, 0.8); /* Darker background color */
+        height: 100vh; /* Set to full viewport height */
+        display: flex;
+        flex-direction: column; /* Align children in a column */
+        justify-content: flex-start; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        padding: 20px; /* Add some padding to the content */
+    }
+
+    /* Add a custom style to center the "Upcoming Events" heading */
+    .heading-center {
+        text-align: center;
+        margin-bottom: 20px; /* Add margin to the bottom of the heading */
+    }
+
+    body {
+        font-family: 'Noto Sans Mono', monospace;
+    }
+
+    .text-neon-green {
+        color: #39FF14; /* Neon green color */
+    }
+
+</style>
+<body>
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand">AB's Event Planner</a>
+        <h2>Welcome, {{user.first_name}}!!</h2>
+        <form class="form-inline my-2 my-lg-0">
+            <a href="/events/new" class="btn btn-outline-success mr-3">Add Event</a>
+            <a href="/logout" class="btn btn-outline-danger my-2 my-sm-0">Logout</a>
+        </form>
+    </nav>
+    <div id="content-container">
+            <div class="container">
+                <h1 class="my-4 heading-center text-neon-green">Upcoming Events</h1>
+                <div class="table-responsive">
+                    <table class="table table-striped table-dark text-success">
+                        <thead>
+                            <tr>
+                                <th>Event Name</th>
+                                <th>Location</th>
+                                <th>RSVPs</th>
+                                <th>Event Creator</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for event in events %}
+                            <tr>
+                                <td><a href="/events/{{event.id}}">{{ event.event_name }}</a></td>
+                                <td>{{ event.location }}</td>
+                                <td>{{ event.rsvps_count }}</td>  <!-- Display RSVP count for each event -->
+                                <td>{{ event.creator.first_name }}</td>
+                                <td>
+                                    {% if session['user_id'] == event.creator.id %}
+                                    <a href="/events/delete/{{event.id}}" class="text-danger">Delete</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+    </div>
+</body>
+</html>
