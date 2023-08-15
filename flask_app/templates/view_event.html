@@ -66,7 +66,7 @@
             </div>
         </div>
     </div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYdMmGnShiuCOLcAatx9LUAx9SDHe38Bs&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOURGOOGLEAPIKEYHERE&callback=initMap" async defer></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         let map;
@@ -74,7 +74,7 @@
         function initMap() {
             let address = document.getElementById('address').innerHTML;
     
-            $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyCYdMmGnShiuCOLcAatx9LUAx9SDHe38Bs`, function(data, textStatus, jqXHR) {
+            $.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=YOURGOOGLEAPIKEYHERE`, function(data, textStatus, jqXHR) {
                 console.log('status:' + textStatus + ', data:', data.results);
     
                 for (let key in data) {
